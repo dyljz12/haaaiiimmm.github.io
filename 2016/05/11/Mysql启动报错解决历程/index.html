@@ -10,12 +10,11 @@
   <meta name="author" content="Yu Chuang(haaaiiimmm)">
   
   <meta name="description" content="错误信息: The server quit without updating PID file
-尝试解决google了一下解决办法太多。随便找了几个方法尝试无果。
-解决办法包括：
+尝试解决google了一下解决办法太多。随便找了几个方法尝试。
 
-检查是否有僵尸进程，kill掉再重启即可。
+检查是否有僵尸进程，kill掉再重启。
 
-ps -a | grep mysql确实发现有mysql进程，杀掉后再m">
+ps -a | grep mysql确实发现有mysql进程，杀掉后再mysql.server ">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -100,12 +99,6 @@ var _hmt = _hmt || [];
 		  </li>
 		  
 		  <li>
-			<a href="/about" title="About me.">
-			  <i class=""></i>About
-			</a>
-		  </li>
-		  
-		  <li>
 			<a href="/atom.xml" title="Subscribe me.">
 			  <i class=""></i>RSS
 			</a>
@@ -142,49 +135,40 @@ var _hmt = _hmt || [];
 	  		
 
 	  <p>错误信息: <code>The server quit without updating PID file</code></p>
-<h1 id="尝试解决"><a href="#尝试解决" class="headerlink" title="尝试解决"></a>尝试解决</h1><p>google了一下解决办法太多。随便找了几个方法尝试无果。</p>
-<p>解决办法包括：</p>
+<h1 id="尝试解决"><a href="#尝试解决" class="headerlink" title="尝试解决"></a>尝试解决</h1><p>google了一下解决办法太多。随便找了几个方法尝试。</p>
 <blockquote>
-<p>检查是否有僵尸进程，kill掉再重启即可。</p>
+<p>检查是否有僵尸进程，kill掉再重启。</p>
 </blockquote>
-<p><code>ps -a | grep mysql</code>确实发现有mysql进程，杀掉后再<code>mysql.server start</code>，无法启动，报了同样的错，WTF。</p>
-<p>再检查进程，那个该死的进程还在，只是换了个进程号，再检查，依旧。</p>
-<p>分析了问题所在：mysql守护进程其实一直在重启mysql，只不过因为不明原因启动失败，我杀掉再重启不过是干了同样事，当然没解决问题。</p>
+<p><code>ps -a | grep mysql</code>确实发现有mysql进程，杀掉后再<code>mysql.server start</code>，无法启动，报了同样的错。</p>
+<p>再检查进程，还在，只是换了个进程号，再检查，依旧。</p>
+<p>分析了问题所在：mysql守护进程其实一直在重启mysql，因为不明原因启动失败。</p>
 <blockquote>
-<p>在/etc/my.cnf 中加入<br>‘’’<br>datadir = /usr/local/mysql/data<br>log-error = /usr/local/mysql/data/error.log<br>pid-file = /usr/local/mysql/data/mysql.pid<br>user = mysql<br>tmpdir = /tmp<br>‘’’</p>
+<p>在/etc/my.cnf 中加入<br>\’’’<br>datadir = /usr/local/mysql/data<br>log-error = /usr/local/mysql/data/error.log<br>pid-file = /usr/local/mysql/data/mysql.pid<br>user = mysql<br>tmpdir = /tmp<br>\’’’</p>
 </blockquote>
-<p>半信半疑的加上了这几个配置，没解决。</p>
+<p>半信半疑的加上了这几个配置，没解决问题。</p>
 <blockquote>
-<p>用户没有<em>xxx</em>. pid这个文件的的写权限</p>
+<p>用户没有<em>xxx</em>. pid这个文件的的写权限。</p>
 </blockquote>
-<p>看上去就不合理，难道只有root 能玩数据库吗。</p>
+<p>看上去就不合理。</p>
 <p>但还是试了下 chomd 给自己全部权限。</p>
 <p>无果。。。。</p>
 <blockquote>
-<p>删掉所有err 文件</p>
+<p>删掉所有err 文件。</p>
 </blockquote>
 <p>看起来很搞笑，居然还有人说这办法可行。</p>
 <p>好吧我也试试。</p>
 <p>到<code>/usr/local/mysql/data</code>中rm了所有err文件。</p>
 <p>显然没用。而且因为守护进程的重启又生成了err文件。</p>
-<h1 id="最终解决办法"><a href="#最终解决办法" class="headerlink" title="最终解决办法"></a>最终解决办法</h1><p>快要</p>
+<h1 id="最终解决办法"><a href="#最终解决办法" class="headerlink" title="最终解决办法"></a>最终解决办法</h1><p>回想前面最后一个办法，既然发现守护进程在写err文件，那便是错误日志咯。<code>tail -f *.err*</code>，观察了一会发现了问题所在。</p>
+<p>很简单，配置文件出错。日志表明了具体出错行数。</p>
+<p>手动修改了<code>my.cnf</code>，把错误行数注释掉。启动成功。</p>
+<p>这次经历告诉我们，查日志多么重要。。。</p>
 	  
 	</div>
 
 	<div>
   	<center>
 	<div class="pagination">
-
-    
-    
-    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
-    
-
-    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
-    
-    <a href="/2016/04/24/test/" type="button" class="btn btn-default ">Next<i
-                class="fa fa-arrow-circle-o-right"></i></a>
-    
 
     
 </div>
@@ -195,7 +179,7 @@ var _hmt = _hmt || [];
 	<!-- comment -->
 	
 <section id="comment">
-    <h2 class="title">Comments</h2>
+    <h2 class="title">Comentários</h2>
 
     
 </section>
