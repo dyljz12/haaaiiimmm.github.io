@@ -6,13 +6,15 @@
   <meta http-equiv="cache-control" content="no-cache">
   <meta http-equiv="expires" content="0">
   
-  <title>Archives: 2016/5 | Yu&#39;s Blog</title>
+  <title>vim启动失败`Library not loaded ` | Yu&#39;s Blog</title>
   <meta name="author" content="Yu Chuang(haaaiiimmm)">
+  
+  <meta name="description" content="问题12345`=\&amp;gt; vim .vimrcdyld: Library not loaded: /usr/local/lib/libruby.2.2.0.dylib  Referenced from: /usr/local/bin/vim  Reason: image not found[1]">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="vim启动失败`Library not loaded `"/>
   <meta property="og:site_name" content="Yu&#39;s Blog"/>
 
   
@@ -107,101 +109,97 @@ var _hmt = _hmt || [];
   	<div class="content">
     	 
 
-<!-- title -->
-<div class="page-header">
-  <h1 class="archive-title"><i class="fa fa-archive"></i> 2016/5</h1>
-</div>
 
-<div class="row page">
-  <!-- cols -->
-  
-  <div class="col-md-9">
 	
-
-	  <div id="top_search"></div>
-
-	  <div class="archive">
-		
-		
-		
-			
-			
-			<h4 class="archive-ul" data-toggle="collapse" data-target="#2016">2016<b class="caret"></b></h4>
-			<ul id="2016" class="collapse in">
-			
-		
-		<li class="listing-item">
-		<span class="date_class"> 2016-06-15 </span> &raquo;
-		
-		   <span class="title"><a href="/2016/06/15/vim启动失败/" >vim启动失败`Library not loaded `</a></span>
-		
-		</li>			
-		
-		
-		
-		<li class="listing-item">
-		<span class="date_class"> 2016-05-11 </span> &raquo;
-		
-		   <span class="title"><a href="/2016/05/11/Mysql启动报错解决历程/" >Mysql启动报错</a></span>
-		
-		</li>			
-		
-		</ul>
+		<div class="page-header">
+			<h1> vim启动失败`Library not loaded `</h1>
 		</div>
-
-</div> <!-- col-md-9/col-md-12 -->
-
-
-<div class="col-md-3">
-	<div id="sidebar">
 	
-			
-  <div id="site_search">
-   <div class="form-group">
-    <input type="text" id="local-search-input" name="q" results="0" placeholder="Search" class="st-search-input st-default-search-input form-control"/>
-   </div>  
-  <div id="local-search-result"></div>
-  </div>
 
 
-		
-			
-		
-			
 
-		
-			
-<div class="widget">
-  <h4>Recent Posts</h4>
-  <ul class="entry list-unstyled">
+<div class="row post">
+	<!-- cols -->
+	
+	<div id="top_meta"></div>
+	<div class="col-md-9">
+	
+
+	<!-- content -->
+	<div class="mypage">		
+	  		
+
+	  <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">`=\&gt; vim .vimrc</span><br><span class="line">dyld: Library not loaded: /usr/local/lib/libruby.2.2.0.dylib</span><br><span class="line">  Referenced from: /usr/local/bin/vim</span><br><span class="line">  Reason: image not found</span><br><span class="line">[1]()    85018 trace trap  vim .vimrc</span><br></pre></td></tr></table></figure>
+<p>`</p>
+<h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">`brew update</span><br><span class="line">brew uninstall --force ruby</span><br><span class="line">brew uninstall --force openssl</span><br><span class="line">brew install openssl</span><br><span class="line">brew link openssl --force</span><br><span class="line">brew install rbenv</span><br><span class="line">rbenv install 2.2.0</span><br><span class="line">rbenv global 2.2.0</span><br><span class="line">echo &apos;export PATH=/usr/local/bin:$PATH&apos; \&gt;\&gt; /.zshrc</span><br><span class="line">echo &apos;export PATH=$HOME/.rbenv/shims:$PATH&apos; \&gt;\&gt; /.zshrc</span><br><span class="line">CONFIGURE_OPTS=&quot;--disable-install-rdoc --enable-shared&quot; rbenv install 2.2.0</span><br><span class="line">sudo ln -s /.rbenv/versions/2.2.0 /usr/local/opt/ruby</span><br></pre></td></tr></table></figure>
+<p>`<br>再重装vim</p>
+<p><code>sudo brew install vim</code></p>
+	  
+	</div>
+
+	<div>
+  	<center>
+	<div class="pagination">
+
     
-      <li>
-        <a href="/2016/06/15/vim启动失败/" ><i class="fa fa-file-o"></i>vim启动失败`Library not loaded `</a>
-      </li>
     
-      <li>
-        <a href="/2016/05/11/Mysql启动报错解决历程/" ><i class="fa fa-file-o"></i>Mysql启动报错</a>
-      </li>
+    <a type="button" class="btn btn-default disabled"><i class="fa fa-arrow-circle-o-left"></i>Prev</a>
     
-  </ul>
+
+    <a href="/" type="button" class="btn btn-default"><i class="fa fa-home"></i>Home</a>
+    
+    <a href="/2016/05/11/Mysql启动报错解决历程/" type="button" class="btn btn-default ">Next<i
+                class="fa fa-arrow-circle-o-right"></i></a>
+    
+
+    
 </div>
 
-		
-			
-<div class="widget">
-	<h4>Links</h4>
-	<ul class="blogroll list-unstyled">
+    </center>
+	</div>
 	
-		<li><i class="fa fa-github"></i><a href="https://github.com/haaaiiimmm" title="Haaaiiimmm's Github repository." target="_blank"]);">Github</a></li>
+	<!-- comment -->
 	
-	</ul>
-</div>
+<section id="comment">
+    <h2 class="title">Comments</h2>
+
+    
+</section>
 
 
+	</div> <!-- col-md-9/col-md-12 -->
 		
-	</div> <!-- sidebar -->
-</div> <!-- col-md-3 -->
+	
+	<div id="side_meta">
+		<div class="col-md-3" id="post_meta"> 
 
+	<!-- date -->
+	
+	<div class="meta-widget">
+	<i class="fa fa-clock-o"></i>
+	2016-06-15 
+	</div>
+	
+
+	<!-- categories -->
+    
+
+	<!-- tags -->
+		
+
+	<!-- toc -->
+	<div class="meta-widget">
+	
+	</div>
+	
+    <hr>
+	
+</div><!-- col-md-3 -->
+
+	</div>
+		
+
+</div><!-- row -->
 
 
 
