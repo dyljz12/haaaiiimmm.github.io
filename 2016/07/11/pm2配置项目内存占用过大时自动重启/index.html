@@ -3,13 +3,15 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Archives | Yu&#39;s Blog</title>
+  <title>pm2配置项目内存占用过大时自动重启 | Yu&#39;s Blog</title>
   <meta name="author" content="Yu Chuang(haaaiiimmm)">
+  
+  <meta name="description" content="问题发现周日早晨7点醒来发现夜里3个项目报警到wechat，同一时刻挂了，并且5分钟后没有再报警，吓的马上起来。直觉是被攻击了。第一时间ssh到线上机器检查各项目状况，一切正常。但检查前端项目时发现某一项目内存占用非常大，那么并不是被攻击，简单的内存泄漏而已，应该是运行了一段时间占满了内存把其它项目">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="pm2配置项目内存占用过大时自动重启"/>
   <meta property="og:site_name" content="Yu&#39;s Blog"/>
 
   
@@ -106,21 +108,21 @@
 		<div class="content">
 			<!-- index -->
 		   
-			  	<h2>归档</h2>
-		  		
-	              <p class="archive-item">
-						<a href="/2016/07/11/pm2配置项目内存占用过大时自动重启/" class="archive-title">pm2配置项目内存占用过大时自动重启</a><span class="archive post-time">2016-07-11</span>
-					</p>
-			  	
-	              <p class="archive-item">
-						<a href="/2016/06/15/vim启动失败/" class="archive-title">vim启动失败`Library not loaded `</a><span class="archive post-time">2016-06-15</span>
-					</p>
-			  	
-	              <p class="archive-item">
-						<a href="/2016/05/11/Mysql启动报错解决历程/" class="archive-title">Mysql启动报错</a><span class="archive post-time">2016-05-11</span>
-					</p>
-			  	
-			  <!-- post -->
+
+			  		<h2>pm2配置项目内存占用过大时自动重启</h2>
+					
+					<div>
+						<span class="post-time">2016-07-11 13:05:07</span>
+					</div>	
+					
+
+					<div class="article-content">
+						<h1 id="问题发现"><a href="#问题发现" class="headerlink" title="问题发现"></a>问题发现</h1><p>周日早晨7点醒来发现夜里3个项目报警到wechat，同一时刻挂了，并且5分钟后没有再报警，吓的马上起来。<br>直觉是被攻击了。<br>第一时间ssh到线上机器检查各项目状况，一切正常。但检查前端项目时发现某一项目内存占用非常大，那么并不是被攻击，简单的内存泄漏而已，应该是运行了一段时间占满了内存把其它项目都拖垮了。问题不大后果不小。</p>
+<h1 id="解决"><a href="#解决" class="headerlink" title="解决"></a>解决</h1><p>好在nodejs项目都用pm2管理，进程被干死了以后会自动重启，但资源都让一个项目耗光了影响了别的项目可不行。在内存泄漏原因找到之前应该想办法让该项目及早自重启。<br>在nodejs里，可以从process对象中获得进程的内存占用信息，自己写个监控程序不难，但既然用了pm2，就让pm2来解决。<br>pm2提供了<code>--max-memory-restart</code>参数。<br>启动项目时加上这个参数，就可在内存占用超过设定值的时候自动重启。<br>例：<br><code>pm2 start --max-memory-restart 200M -n &#39;test-project app.js&#39;</code><br>非常简单。<br>在github上的相关issue: <a href="https://github.com/Unitech/pm2/issues/1159" target="_blank" rel="external">链接</a><br>官方文档: <a href="http://pm2.keymetrics.io/docs/usage/process-management/#max-memory-restart" target="_blank" rel="external">链接</a></p>
+
+					</div>
+
+			  <!-- about -->
 			  
 		</div>
 
@@ -129,6 +131,8 @@
 
 		<div class="comment-section">
   
+  
+
 
 </div>
 	</div>
