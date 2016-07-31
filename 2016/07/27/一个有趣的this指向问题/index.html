@@ -3,13 +3,22 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Yu&#39;s Blog</title>
+  <title>一个有趣的this指向问题 | Yu&#39;s Blog</title>
   <meta name="author" content="Yu Chuang(haaaiiimmm)">
+  
+  <meta name="description" content="let obj = {
+    test: ()=&amp;gt;{
+        console.log(this)
+    }
+}
+obj.test() // this -&amp;gt; ？
+(obj.test = obj.test)() // this -&amp;gt; ？
+(false || obj.test">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-  
+  <meta property="og:title" content="一个有趣的this指向问题"/>
   <meta property="og:site_name" content="Yu&#39;s Blog"/>
 
   
@@ -100,50 +109,42 @@
 	  <div class="container" >
 	    <div class="row">
 	
-	<div class="col-md-9">
+	<div class="col-md-9 center-content">
 	
 
 		<div class="content">
 			<!-- index -->
 		   
-				
-		            <div class="index-item-wrapper">
-		              <h3>
-		                <a class="post-title" href="/2016/07/27/一个有趣的this指向问题/">一个有趣的this指向问题</a>
-		              </h3>
-									<span class="post-time">2016-07-27</span>
-		              <div class="excerpt"></div>
-		              
-		            </div>
-				
-		            <div class="index-item-wrapper">
-		              <h3>
-		                <a class="post-title" href="/2016/07/11/pm2配置项目内存占用过大时自动重启/">pm2配置项目内存占用过大时自动重启</a>
-		              </h3>
-									<span class="post-time">2016-07-11</span>
-		              <div class="excerpt"></div>
-		              
-		            </div>
-				
-		            <div class="index-item-wrapper">
-		              <h3>
-		                <a class="post-title" href="/2016/06/15/vim启动失败/">vim启动失败`Library not loaded `</a>
-		              </h3>
-									<span class="post-time">2016-06-15</span>
-		              <div class="excerpt"></div>
-		              
-		            </div>
-				
-		            <div class="index-item-wrapper">
-		              <h3>
-		                <a class="post-title" href="/2016/05/11/Mysql启动报错解决历程/">Mysql启动报错</a>
-		              </h3>
-									<span class="post-time">2016-05-11</span>
-		              <div class="excerpt"></div>
-		              
-		            </div>
-				
-				<!-- archives -->
+
+			  		<h2>一个有趣的this指向问题</h2>
+					
+					<div>
+						<span class="post-time">2016-07-27 10:39:55</span>
+					</div>	
+					
+
+					<div class="article-content">
+						<pre><code>let obj = {
+    test: ()=&gt;{
+        console.log(this)
+    }
+}
+obj.test() // this -&gt; ？
+(obj.test = obj.test)() // this -&gt; ？
+(false || obj.test)() // this -&gt; ？
+</code></pre><p>这里考察了多个知识点。</p>
+<ul>
+<li>谁调用了this就指向谁</li>
+<li>匿名函数this指向window（特指在浏览器中）</li>
+<li>赋值语句返回<strong>右值</strong></li>
+<li>逻辑或语句返回从左到右第一个真值，否则返回最后一个值</li>
+</ul>
+<p>理解了这几条再回头看问题就很简单了。</p>
+<p>三个this分别指向obj, window, window</p>
+
+					</div>
+
+			  <!-- about -->
 			  
 		</div>
 
@@ -152,54 +153,12 @@
 
 		<div class="comment-section">
   
+  
+
 
 </div>
 	</div>
 
-	
-		<div class="col-md-3">
-			<div id="sidebar">
-		</div>
-			
-					
-<div class="widget">
-  <h4>Recent Posts</h4>
-  <ul class="entry list-unstyled">
-    
-      <li>
-        <a href="/2016/07/27/一个有趣的this指向问题/"  > <i class="mdi-editor-insert-drive-file"></i>一个有趣的this指向问题</a>
-      </li>
-    
-      <li>
-        <a href="/2016/07/11/pm2配置项目内存占用过大时自动重启/"  > <i class="mdi-editor-insert-drive-file"></i>pm2配置项目内存占用过大时自动重启</a>
-      </li>
-    
-      <li>
-        <a href="/2016/06/15/vim启动失败/"  > <i class="mdi-editor-insert-drive-file"></i>vim启动失败`Library not loaded `</a>
-      </li>
-    
-      <li>
-        <a href="/2016/05/11/Mysql启动报错解决历程/"  > <i class="mdi-editor-insert-drive-file"></i>Mysql启动报错</a>
-      </li>
-    
-  </ul>
-</div>
-
-
-				
-					
-<div class="widget">
-	<h4>Links</h4>
-	<ul class="blogroll list-unstyled">
-	
-		<li> <a href="http://www.github.com/haaaiiimmm" title="haaaiiimmm" target="_blank"> <i class="mdi-action-launch"></i> GitHub</a></li>
-	
-	</ul>
-</div>
-
-
-				
-			</div>
 	
 
 </div>
